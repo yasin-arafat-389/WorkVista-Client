@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, IconButton, Collapse } from "@material-tailwind/react";
+import { IconButton, Collapse } from "@material-tailwind/react";
 import { Link, NavLink } from "react-router-dom";
 import "./NavBar.css";
 import useAuth from "../../Hooks/useAuth";
@@ -24,7 +24,19 @@ export function NavBar() {
       </div>
 
       <div className="flex items-center text-[16px] font-bold ">
-        <NavLink to="/about">About</NavLink>
+        <NavLink to="/add-job">Add Job</NavLink>
+      </div>
+
+      <div className="flex items-center text-[16px] font-bold ">
+        <NavLink to="/my-posted-jobs">My Posted Jobs</NavLink>
+      </div>
+
+      <div className="flex items-center text-[16px] font-bold ">
+        <NavLink to="/my-bids">My Bids</NavLink>
+      </div>
+
+      <div className="flex items-center text-[16px] font-bold ">
+        <NavLink to="/bid-requests">Bid Requests</NavLink>
       </div>
     </ul>
   );
@@ -32,13 +44,10 @@ export function NavBar() {
   return (
     <nav className="w-full bg-orange-400 px-4 py-2 lg:px-8 lg:py-4 sticky top-0 z-10">
       <div className="flex items-center justify-between text-blue-gray-900">
-        <Typography
-          as="a"
-          href="#"
-          className="mr-4 cursor-pointer py-1.5 font-medium"
-        >
-          Material Tailwind
-        </Typography>
+        <img
+          src="https://i.ibb.co/H75CRnK/workvista-logo-removebg-preview.png"
+          className="w-[15%]"
+        />
         <div className="hidden lg:block">{navList}</div>
         <div className="hidden md:hidden lg:flex items-center gap-x-1">
           {user ? (
