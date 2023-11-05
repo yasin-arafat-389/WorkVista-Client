@@ -9,6 +9,7 @@ import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { Spinner } from "@material-tailwind/react";
 import toast from "react-hot-toast";
+import RouteChangeLoader from "../../Utilities/Loader/RouteChangeLoader/RouteChangeLoader";
 
 const JobDetails = () => {
   let axios = useAxios();
@@ -42,11 +43,7 @@ const JobDetails = () => {
 
   // Data is fetching
   if (isFetching) {
-    return (
-      <div className="flex h-screen justify-center items-center">
-        <div>Loading</div>
-      </div>
-    );
+    return <RouteChangeLoader />;
   }
 
   const handleInputChange = (e) => {

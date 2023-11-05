@@ -2,17 +2,14 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import useAuth from "../Hooks/useAuth";
+import RouteChangeLoader from "../Utilities/Loader/RouteChangeLoader/RouteChangeLoader";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
   let location = useLocation();
 
   if (loading) {
-    return (
-      <div className="flex h-screen justify-center items-center">
-        <div>Loading</div>
-      </div>
-    );
+    return <RouteChangeLoader />;
   }
 
   if (!user) {
