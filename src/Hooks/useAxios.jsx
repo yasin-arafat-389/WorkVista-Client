@@ -13,8 +13,6 @@ const useAxios = () => {
   let { logOut, user } = useAuth();
   const navigate = useNavigate();
 
-  console.log(logOut);
-
   useEffect(() => {
     axiosSecure.interceptors.response.use(
       (res) => {

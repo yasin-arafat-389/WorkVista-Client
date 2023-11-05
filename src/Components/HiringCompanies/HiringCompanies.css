@@ -1,0 +1,21 @@
+.hiringButton {
+  border: 2px solid #24b4fb;
+  background-color: #24b4fb;
+  border-radius: 0.9em;
+  padding: 10px;
+  transition: all ease-in-out 0.2s;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.hiringButton span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: 600;
+}
+
+.hiringButton:hover {
+  background-color: #0071e2;
+}
