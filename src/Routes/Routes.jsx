@@ -3,8 +3,8 @@ import MainLayout from "../Layouts/MainLayout";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Login from "../Pages/Login/Login";
 import Registration from "../Pages/Registration/Registration";
-import PrivateRoute from "./PrivateRoute";
 import Home from "../Pages/Home/Home";
+import JobDetails from "../Pages/JobDetails/JobDetails";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +15,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/job-details/:id",
+        element: <JobDetails />,
       },
       {
         path: "/add-job",

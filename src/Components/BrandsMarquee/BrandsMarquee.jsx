@@ -2,7 +2,7 @@ import Marquee from "react-fast-marquee";
 
 const BrandsMarquee = () => {
   return (
-    <div className="] py-10">
+    <div className="pt-[70px] pb-[40px]">
       <div className="w-[80%] mx-auto">
         <h2 className="text-center text-[30px] md:text-[40px] lg:text-[40px] font-bold leading-tight text-gray-800">
           Collaboration with more than{" "}

@@ -6,14 +6,14 @@ import { BsFillTagsFill } from "react-icons/bs";
 
 const HiringCompanies = () => {
   return (
-    <div className="bg-[#FAF6EB] pb-10">
+    <div className="bg-[#FAF6EB] pt-[40px] pb-[80px]">
       <div className="w-[80%] mx-auto">
         <h2 className="text-center text-[30px] md:text-[40px] lg:text-[40px] font-bold leading-tight text-gray-800 py-0 pb-7 md:py-3 md:pb-7 lg:py-10">
           Featured companies <span className="text-[#19A463]">Actively</span>{" "}
           Hiring
         </h2>
 
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Card 1 */}
           <div className="cardHiring bg-[#fff] p-5 shadow-xl hover:shadow-2xl rounded-3xl">
             <div className="HiringIdentity flex justify-between">

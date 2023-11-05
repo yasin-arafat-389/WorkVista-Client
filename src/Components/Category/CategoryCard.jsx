@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { Link } from "react-router-dom";
 import "./category.css";
 
 const CategoryCard = ({ data }) => {
@@ -28,9 +29,11 @@ const CategoryCard = ({ data }) => {
             </span>
           </li>
         </ul>
-        <button type="button" className="actionCat">
-          Bid Now
-        </button>
+        <Link to={`/job-details/${data._id}`}>
+          <button type="button" className="actionCat">
+            Bid Now
+          </button>
+        </Link>
       </div>
     </div>
   );
