@@ -7,12 +7,13 @@ const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
   let location = useLocation();
 
-  if (loading)
+  if (loading) {
     return (
       <div className="flex h-screen justify-center items-center">
         <div>Loading</div>
       </div>
     );
+  }
 
   if (!user) {
     toast.error("You must login first");

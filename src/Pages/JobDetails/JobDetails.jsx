@@ -1,14 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../Hooks/useAxios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BiTimeFive } from "react-icons/bi";
 import { BiDollar } from "react-icons/bi";
 import "./JobDetails.css";
+import useAxios from "../../Hooks/useAxios";
+import { useState } from "react";
+import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
+import { Spinner } from "@material-tailwind/react";
+import toast from "react-hot-toast";
 
 const JobDetails = () => {
   let axios = useAxios();
   let id = useParams();
   let jobId = id.id;
+  let { user } = useAuth();
+  let navigate = useNavigate();
+
+  let [loading, setLoading] = useState(false);
 
   const singleData = async () => {
     try {
@@ -24,11 +33,55 @@ const JobDetails = () => {
     queryFn: singleData,
   });
 
-  console.log(data);
+  // POST data from the form
+  const [formData, setFormData] = useState(() => ({
+    yourEmail: user?.email || "",
+    price: "",
+    deadline: "",
+  }));
 
+  // Data is fetching
   if (isFetching) {
-    return <div>Loading</div>;
+    return (
+      <div className="flex h-screen justify-center items-center">
+        <div>Loading</div>
+      </div>
+    );
   }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const postFormData = async (formDataWithStatus) => {
+    try {
+      setLoading(true);
+      await axios.post("/myBids", formDataWithStatus).then(() => {
+        setLoading(false);
+        toast.success("You placed the bid successfully");
+        navigate("/my-bids");
+      });
+    } catch (error) {
+      console.error("Error storing data", error);
+    }
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    if (!formData.price || !formData.deadline) {
+      return Swal.fire("", "Price and Deadline can not be empty", "warning");
+    }
+
+    const formDataWithStatus = {
+      ...formData,
+      status: "pending",
+      buyerEmail: data.email,
+      jobTitle: data.job_title,
+    };
+    postFormData(formDataWithStatus);
+  };
 
   return (
     <div className="bg-[#eff6f3] pb-10">
@@ -53,7 +106,7 @@ const JobDetails = () => {
             Price Range
           </h1>
           <h1 className="text-[#244034] font-bold text-[20px]">
-            {data.price_range}
+            ${data.price_range_min} - ${data.price_range_max}
           </h1>
         </div>
       </div>
@@ -71,29 +124,61 @@ const JobDetails = () => {
           <form className="bidForm" action="#">
             <div className="input-box">
               <label>Your Email</label>
-              <input required type="email" />
+              <input
+                required
+                type="email"
+                readOnly
+                name="yourEmail"
+                value={formData.yourEmail}
+                onChange={handleInputChange}
+                className="cursor-not-allowed"
+              />
             </div>
 
             <div className="input-box">
               <label>Buyer Email</label>
-              <input required type="email" />
+              <input
+                required
+                type="email"
+                readOnly
+                defaultValue={data.email}
+                className="cursor-not-allowed"
+              />
             </div>
 
             <div className="input-box">
               <label>Price</label>
               <input
-                required
                 placeholder="How much will you charge?"
                 type="number"
+                required
+                name="price"
+                value={formData.price}
+                onChange={handleInputChange}
               />
             </div>
 
             <div className="input-box">
               <label>Deadline</label>
-              <input required="" placeholder="Enter birth date" type="date" />
+              <input
+                required
+                placeholder="Enter birth date"
+                type="date"
+                name="deadline"
+                value={formData.deadline}
+                onChange={handleInputChange}
+              />
             </div>
 
-            <button>Submit</button>
+            <button type="submit" onClick={handleFormSubmit}>
+              {loading ? (
+                <div className="flex justify-center gap-5 ">
+                  <Spinner color="red" /> Placing Bid
+                </div>
+              ) : (
+                "Place Bid"
+              )}
+            </button>
           </form>
         </section>
       </div>

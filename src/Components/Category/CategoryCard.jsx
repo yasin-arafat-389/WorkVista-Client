@@ -18,8 +18,8 @@ const CategoryCard = ({ data }) => {
           </li>
           <li className="listCat flex items-center gap-3">
             <span>
-              <span className="text-blue-600">Price Range:</span>{" "}
-              {data.price_range}
+              <span className="text-blue-600">Price Range: </span>$
+              {data.price_range_min} - ${data.price_range_max}
             </span>
           </li>
           <li className="listCat flex items-center gap-3">
