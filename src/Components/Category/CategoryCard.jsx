@@ -31,9 +31,12 @@ const CategoryCard = ({ data }) => {
             </span>
           </li>
         </ul>
+
         {data?.email === user?.email ? (
-          <Link to="/bid-requests">
-            <button className="actionCat">See bids for this job</button>
+          <Link to={`/bid-requests`}>
+            <button type="button" className="actionCat">
+              See Bid Requests
+            </button>
           </Link>
         ) : (
           <Link to={`/job-details/${data._id}`}>

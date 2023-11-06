@@ -1,10 +1,15 @@
 import { useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { Spinner } from "@material-tailwind/react";
 
 const AddJob = () => {
-  let { user, loading } = useAuth();
+  let { user } = useAuth();
   let axios = useAxios();
+  let navigate = useNavigate();
+  let [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     email: user.email,
@@ -17,21 +22,24 @@ const AddJob = () => {
   });
 
   const handleFormSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
     const dataToSubmit = {
-      emai: formData.email,
-      job_title: formData.job_title,
-      deadline: formData.deadline,
-      short_description: formData.short_description,
       category: formData.category,
+      deadline: formData.deadline,
+      email: formData.email,
+      job_title: formData.job_title,
       price_range_max: formData.price_range_max,
       price_range_min: formData.price_range_min,
+      short_description: formData.short_description,
     };
 
     axios
       .post("/categories", dataToSubmit)
       .then(() => {
-        console.log("Data successfully sent to MongoDB!");
+        setLoading(false);
+        toast.success("Job has been added");
+        navigate("/my-posted-jobs");
       })
       .catch((error) => {
         console.error("Error sending data to MongoDB", error);
@@ -45,10 +53,6 @@ const AddJob = () => {
       [name]: value,
     }));
   };
-
-  if (loading) {
-    return <div>Hi</div>;
-  }
 
   return (
     <div className="bg-[#eff6f3] py-10">
@@ -153,7 +157,15 @@ const AddJob = () => {
               />
             </div>
 
-            <button type="submit">Add Job</button>
+            <button type="submit">
+              {loading ? (
+                <div className="flex justify-center gap-5 ">
+                  <Spinner color="red" /> Adding Job
+                </div>
+              ) : (
+                "Add Job"
+              )}
+            </button>
           </form>
         </section>
       </div>

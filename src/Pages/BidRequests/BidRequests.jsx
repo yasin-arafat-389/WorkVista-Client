@@ -24,7 +24,7 @@ const BidRequests = () => {
     const updatedData = [...data];
     updatedData[index].status = "in progress";
     setData(updatedData);
-    const itemId = updatedData[index]._id; // Replace '_id' with the actual identifier field in your data
+    const itemId = updatedData[index]._id;
     axios.put(`/bidRequests/${itemId}`, { status: "in progress" });
   };
 
@@ -32,7 +32,7 @@ const BidRequests = () => {
     const updatedData = [...data];
     updatedData[index].status = "cancelled";
     setData(updatedData);
-    const itemId = updatedData[index]._id; // Replace '_id' with the actual identifier field in your data
+    const itemId = updatedData[index]._id;
     axios.put(`/bidRequests/${itemId}`, { status: "cancelled" });
   };
 

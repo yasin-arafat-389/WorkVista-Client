@@ -1,10 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { BiTimeFive } from "react-icons/bi";
 import { BiDollar } from "react-icons/bi";
 import "./JobDetails.css";
 import useAxios from "../../Hooks/useAxios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { Button, Spinner } from "@material-tailwind/react";
@@ -18,21 +17,17 @@ const JobDetails = () => {
   let { user } = useAuth();
   let navigate = useNavigate();
 
+  let [data, setData] = useState([]);
   let [loading, setLoading] = useState(false);
+  let [pageLoading, setPageLoading] = useState(false);
 
-  const singleData = async () => {
-    try {
-      const res = await axios.get(`/categories/${jobId}`).then();
-      return res.data;
-    } catch (error) {
-      throw new Error("Error fetching data");
-    }
-  };
-
-  const { data, isFetching } = useQuery({
-    queryKey: ["single-data"],
-    queryFn: singleData,
-  });
+  useEffect(() => {
+    setPageLoading(true);
+    axios.get(`/categories/${jobId}`).then((res) => {
+      setData(res.data);
+      setPageLoading(false);
+    });
+  }, [axios, jobId]);
 
   // POST data from the form
   const [formData, setFormData] = useState(() => ({
@@ -42,7 +37,7 @@ const JobDetails = () => {
   }));
 
   // Data is fetching
-  if (isFetching) {
+  if (pageLoading) {
     return <RouteChangeLoader />;
   }
 
@@ -80,6 +75,8 @@ const JobDetails = () => {
     postFormData(formDataWithStatus);
   };
 
+  console.log(data?.email, user?.email);
+
   return (
     <div className="bg-[#eff6f3] pb-10">
       <div className="text-center text-[40px] text-[#fff] py-10 font-semibold bg-[#244034]">
@@ -115,7 +112,10 @@ const JobDetails = () => {
       </div>
 
       {/* Place your bid form */}
-      {data.email === user?.email ? (
+
+      {}
+
+      {data?.email === user?.email ? (
         <div className="flex justify-center items-center mt-10">
           <Link to="/bid-requests">
             <Button>See bids for this job</Button>

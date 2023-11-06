@@ -1,65 +1,62 @@
-import { useQuery } from "@tanstack/react-query";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import useAxios from "../../Hooks/useAxios";
 import CategoryCard from "./CategoryCard";
 import ContentLoader from "../../Utilities/Loader/ContentLoader/ContentLoader";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Category = () => {
   let axios = useAxios();
 
-  const webData = async () => {
-    try {
-      const res = await axios.get("/categories", {
+  // states
+  let [web, setWeb] = useState([]);
+  let [digital, setDigital] = useState([]);
+  let [graphics, setGraphics] = useState([]);
+  let [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get("/categories", {
         params: {
           category: "web-development",
         },
+      })
+      .then((res) => {
+        setWeb(res.data);
+        setLoading(false);
       });
-      return res.data;
-    } catch (error) {
-      throw new Error("Error fetching web data");
-    }
-  };
+  }, [axios]);
 
-  const { data: web, isFetching: webisFetching } = useQuery({
-    queryKey: ["category-web"],
-    queryFn: webData,
-  });
-
-  const digitalData = async () => {
-    try {
-      const res = await axios.get("/categories", {
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get("/categories", {
         params: {
           category: "digital-marketting",
         },
+      })
+      .then((res) => {
+        setLoading(false);
+        setDigital(res.data);
       });
-      return res.data;
-    } catch (error) {
-      throw new Error("Error fetching web data");
-    }
-  };
+  }, [axios]);
 
-  const { data: digital, isFetching: digitalisFetching } = useQuery({
-    queryKey: ["category-digital"],
-    queryFn: digitalData,
-  });
-
-  const graphicsData = async () => {
-    try {
-      const res = await axios.get("/categories", {
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get("/categories", {
         params: {
           category: "graphics-designing",
         },
+      })
+      .then((res) => {
+        setLoading(false);
+        setGraphics(res.data);
       });
-      return res.data;
-    } catch (error) {
-      throw new Error("Error fetching web data");
-    }
-  };
+  }, [axios]);
 
-  const { data: graphics, isFetching: graphicsisFetching } = useQuery({
-    queryKey: ["category-graphics"],
-    queryFn: graphicsData,
-  });
+  console.log(web);
 
   return (
     <div className="pb-10 bg-[#f9f9f9]">
@@ -76,7 +73,7 @@ const Category = () => {
           </TabList>
 
           <TabPanel>
-            {webisFetching ? (
+            {loading ? (
               <ContentLoader />
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-10 w-[90%] mx-auto">
@@ -88,7 +85,7 @@ const Category = () => {
           </TabPanel>
 
           <TabPanel>
-            {digitalisFetching ? (
+            {loading ? (
               <ContentLoader />
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-10 w-[90%] mx-auto">
@@ -100,7 +97,7 @@ const Category = () => {
           </TabPanel>
 
           <TabPanel>
-            {graphicsisFetching ? (
+            {loading ? (
               <ContentLoader />
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-10 w-[90%] mx-auto">

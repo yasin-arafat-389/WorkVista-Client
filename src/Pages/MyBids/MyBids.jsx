@@ -21,10 +21,10 @@ const MyBids = () => {
 
   const handleComplete = (index) => {
     const updatedData = [...data];
-    const itemId = updatedData[index]._id; // Replace '_id' with the actual identifier field in your data
+    const itemId = updatedData[index]._id;
     updatedData[index].status = "completed";
     setData(updatedData);
-    // Make the PUT request to update the status to 'completed' in the database
+
     axios.put(`/bidRequests/${itemId}`, { status: "completed" });
   };
 
@@ -33,83 +33,6 @@ const MyBids = () => {
   }
 
   return (
-    // <div>
-    //   {data.length === 0 ? (
-    //     <div>
-    //       <NoDataFound text={"You have not made any Bid yet"} />
-    //     </div>
-    //   ) : (
-    //     <>
-    //       <div className="shadow-lg rounded-lg overflow-hidden mx-4 md:mx-10 my-20">
-    //         <table className="w-full table-fixed">
-    //           <thead>
-    //             <tr className="bg-gray-100">
-    //               <th className="w-1/5 py-4 px-6 text-center text-gray-600 font-bold uppercase">
-    //                 Job Title
-    //               </th>
-    //               <th className="w-1/5 py-4 px-6 text-center text-gray-600 font-bold uppercase">
-    //                 Email
-    //               </th>
-    //               <th className="w-1/5 py-4 px-6 text-center text-gray-600 font-bold uppercase">
-    //                 Deadline
-    //               </th>
-    //               <th className="w-1/5 py-4 px-6 text-center text-gray-600 font-bold uppercase">
-    //                 Status
-    //               </th>
-    //               <th className="w-1/5 py-4 px-6 text-center text-gray-600 font-bold uppercase">
-    //                 Action
-    //               </th>
-    //             </tr>
-    //           </thead>
-    //           <tbody className="bg-white">
-    //             <>
-    //               {data.map((item, index) => (
-    //                 <tr key={index}>
-    //                   <td className="py-4 px-6 border-b border-gray-200 text-center">
-    //                     {item.jobTitle}
-    //                   </td>
-    //                   <td className="py-4 px-6 border-b border-gray-200 text-center">
-    //                     {item.yourEmail}
-    //                   </td>
-    //                   <td className="py-4 px-6 border-b border-gray-200 text-center">
-    //                     {item.deadline}
-    //                   </td>
-    //                   <td className="py-4 px-6 border-b border-gray-200 text-center">
-    //                     <span
-    //                       className={`${
-    //                         item.status === "pending" ? "bg-gray-500" : ""
-    //                       } ${
-    //                         item.status === "cancelled" ? "bg-red-500" : ""
-    //                       } ${
-    //                         item.status === "in progress" ? "bg-green-500" : ""
-    //                       }  ${
-    //                         item.status === "completed" ? "bg-green-500" : ""
-    //                       }  text-white py-1 px-2 rounded-full text-xs`}
-    //                     >
-    //                       {item.status}
-    //                     </span>
-    //                   </td>
-    //                   <td className="py-4 px-6 border-b border-gray-200 text-center">
-    //                     <div className="cursor-not-allowed">
-    //                       <Button
-    //                         onClick={() => handleComplete(index)}
-    //                         disabled={item.status !== "in progress"}
-    //                         color=""
-    //                       >
-    //                         Complete
-    //                       </Button>
-    //                     </div>
-    //                   </td>
-    //                 </tr>
-    //               ))}
-    //             </>
-    //           </tbody>
-    //         </table>
-    //       </div>
-    //     </>
-    //   )}
-    // </div>
-
     <div className="bg-[#eff6f3]">
       {data.length === 0 ? (
         <NoDataFound text={"You have no bid requests"} />
