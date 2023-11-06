@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { BiTimeFive } from "react-icons/bi";
 import { BiDollar } from "react-icons/bi";
 import "./JobDetails.css";
@@ -7,7 +7,7 @@ import useAxios from "../../Hooks/useAxios";
 import { useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
-import { Spinner } from "@material-tailwind/react";
+import { Button, Spinner } from "@material-tailwind/react";
 import toast from "react-hot-toast";
 import RouteChangeLoader from "../../Utilities/Loader/RouteChangeLoader/RouteChangeLoader";
 
@@ -115,70 +115,78 @@ const JobDetails = () => {
       </div>
 
       {/* Place your bid form */}
-      <div className="w-full">
-        <section className="bidContainer mx-auto my-10">
-          <header>Place Your Bid</header>
-          <form className="bidForm" action="#">
-            <div className="input-box">
-              <label>Your Email</label>
-              <input
-                required
-                type="email"
-                readOnly
-                name="yourEmail"
-                value={formData.yourEmail}
-                onChange={handleInputChange}
-                className="cursor-not-allowed"
-              />
-            </div>
+      {data.email === user?.email ? (
+        <div className="flex justify-center items-center mt-10">
+          <Link to="/bid-requests">
+            <Button>See bids for this job</Button>
+          </Link>
+        </div>
+      ) : (
+        <div className="w-full">
+          <section className="bidContainer mx-auto my-10">
+            <header>Place Your Bid</header>
+            <form className="bidForm" action="#">
+              <div className="input-box">
+                <label>Your Email</label>
+                <input
+                  required
+                  type="email"
+                  readOnly
+                  name="yourEmail"
+                  value={formData.yourEmail}
+                  onChange={handleInputChange}
+                  className="cursor-not-allowed"
+                />
+              </div>
 
-            <div className="input-box">
-              <label>Buyer Email</label>
-              <input
-                required
-                type="email"
-                readOnly
-                defaultValue={data.email}
-                className="cursor-not-allowed"
-              />
-            </div>
+              <div className="input-box">
+                <label>Buyer Email</label>
+                <input
+                  required
+                  type="email"
+                  readOnly
+                  defaultValue={data.email}
+                  className="cursor-not-allowed"
+                />
+              </div>
 
-            <div className="input-box">
-              <label>Price</label>
-              <input
-                placeholder="How much will you charge?"
-                type="number"
-                required
-                name="price"
-                value={formData.price}
-                onChange={handleInputChange}
-              />
-            </div>
+              <div className="input-box">
+                <label>Price</label>
+                <input
+                  placeholder="How much will you charge?"
+                  type="number"
+                  required
+                  name="price"
+                  value={formData.price}
+                  onChange={handleInputChange}
+                />
+              </div>
 
-            <div className="input-box">
-              <label>Deadline</label>
-              <input
-                required
-                placeholder="Enter birth date"
-                type="date"
-                name="deadline"
-                value={formData.deadline}
-                onChange={handleInputChange}
-              />
-            </div>
+              <div className="input-box">
+                <label>Deadline</label>
+                <input
+                  required
+                  placeholder="Enter birth date"
+                  type="date"
+                  name="deadline"
+                  value={formData.deadline}
+                  onChange={handleInputChange}
+                />
+              </div>
 
-            <button type="submit" onClick={handleFormSubmit}>
-              {loading ? (
-                <div className="flex justify-center gap-5 ">
-                  <Spinner color="red" /> Placing Bid
-                </div>
-              ) : (
-                "Place Bid"
-              )}
-            </button>
-          </form>
-        </section>
-      </div>
+              <button type="submit" onClick={handleFormSubmit}>
+                {loading ? (
+                  <div className="flex justify-center gap-5 ">
+                    <Spinner color="red" /> Placing Bid
+                  </div>
+                ) : (
+                  "Place Bid"
+                )}
+              </button>
+            </form>
+          </section>
+        </div>
+      )}
     </div>
   );
 };

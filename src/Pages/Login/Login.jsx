@@ -137,10 +137,10 @@ const Login = () => {
                   >
                     {loading ? (
                       <div className="flex items-center gap-5 ">
-                        <Spinner color="red" /> Signing Up
+                        <Spinner color="red" /> Signing In
                       </div>
                     ) : (
-                      "Sign Up"
+                      "Sign In"
                     )}
                   </button>
                 </div>

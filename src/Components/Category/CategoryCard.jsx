@@ -1,15 +1,17 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import "./category.css";
+import useAuth from "../../Hooks/useAuth";
 
 const CategoryCard = ({ data }) => {
+  let { user } = useAuth();
+
   return (
     <div>
       <div className="cardCat">
         <div className="headerCat">
           <span className="titleCat">{data.job_title}</span>
         </div>
-
         <ul className="listsCat mt-5 text-[18px]">
           <li className="listCat flex items-center gap-3">
             <span>
@@ -29,11 +31,17 @@ const CategoryCard = ({ data }) => {
             </span>
           </li>
         </ul>
-        <Link to={`/job-details/${data._id}`}>
-          <button type="button" className="actionCat">
-            Bid Now
-          </button>
-        </Link>
+        {data?.email === user?.email ? (
+          <Link to="/bid-requests">
+            <button className="actionCat">See bids for this job</button>
+          </Link>
+        ) : (
+          <Link to={`/job-details/${data._id}`}>
+            <button type="button" className="actionCat">
+              Bid Now
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );
