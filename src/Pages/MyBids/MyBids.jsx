@@ -7,6 +7,8 @@ import NoDataFound from "../../Components/NoDataFound/NoDataFound";
 import { BsHourglassSplit } from "react-icons/bs";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { MdCancel } from "react-icons/md";
+import { Helmet } from "react-helmet";
+import favicon from "./auction.png";
 
 const MyBids = () => {
   let axios = useAxios();
@@ -46,6 +48,10 @@ const MyBids = () => {
 
   return (
     <div className="bg-[#eff6f3]">
+      <Helmet>
+        <title>WorkVista | My Bids</title>
+        <link rel="icon" type="image/png" className="w-full" href={favicon} />
+      </Helmet>
       {data.length === 0 ? (
         <NoDataFound text={"You have not made any bids yet"} />
       ) : (

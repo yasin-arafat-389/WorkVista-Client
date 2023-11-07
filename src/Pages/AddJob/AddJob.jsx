@@ -4,6 +4,8 @@ import useAxios from "../../Hooks/useAxios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "@material-tailwind/react";
+import { Helmet } from "react-helmet";
+import favicon from "./addJob.png";
 
 const AddJob = () => {
   let { user } = useAuth();
@@ -56,6 +58,10 @@ const AddJob = () => {
 
   return (
     <div className="bg-[#eff6f3] py-10">
+      <Helmet>
+        <title>WorkVista | Add Job</title>
+        <link rel="icon" type="image/png" className="w-full" href={favicon} />
+      </Helmet>
       <div className="w-full">
         <section className="bidContainer mx-auto my-10">
           <header>Add a job</header>

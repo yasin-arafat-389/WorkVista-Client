@@ -6,6 +6,8 @@ import useAuth from "../../Hooks/useAuth";
 import NoDataFound from "../../Components/NoDataFound/NoDataFound";
 import { Button, Chip } from "@material-tailwind/react";
 import ProgressBar from "@ramonak/react-progress-bar";
+import { Helmet } from "react-helmet";
+import favicon from "./bid.png";
 
 const BidRequests = () => {
   let axios = useAxios();
@@ -45,6 +47,10 @@ const BidRequests = () => {
 
   return (
     <div className="bg-[#eff6f3]">
+      <Helmet>
+        <title>WorkVista | Bid Requests</title>
+        <link rel="icon" type="image/png" href={favicon} />
+      </Helmet>
       {data.length === 0 ? (
         <NoDataFound text={"You have no bid requests"} />
       ) : (

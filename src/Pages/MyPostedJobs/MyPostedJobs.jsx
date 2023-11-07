@@ -7,6 +7,8 @@ import { Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import NoDataFound from "../../Components/NoDataFound/NoDataFound";
+import { Helmet } from "react-helmet";
+import favicon from "./myPostedJobs.png";
 
 const MyPostedJobs = () => {
   let axios = useAxios();
@@ -52,6 +54,10 @@ const MyPostedJobs = () => {
 
   return (
     <div className="bg-[#eff6f3] ">
+      <Helmet>
+        <title>WorkVista | My Posted Jobs </title>
+        <link rel="icon" type="image/png" className="w-full" href={favicon} />
+      </Helmet>
       {data.length === 0 ? (
         <NoDataFound text={"You have not posted any jobs yet"} />
       ) : (
