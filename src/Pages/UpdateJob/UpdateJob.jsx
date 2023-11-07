@@ -1,17 +1,20 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAxios from "../../Hooks/useAxios";
 import { useState } from "react";
 import RouteChangeLoader from "../../Utilities/Loader/RouteChangeLoader/RouteChangeLoader";
 import toast from "react-hot-toast";
+import { Spinner } from "@material-tailwind/react";
 
 const UpdateJob = () => {
   let axios = useAxios();
   let id = useParams();
+  let navigate = useNavigate();
 
   //   states
   let [data, setData] = useState([]);
   let [loading, setLoading] = useState(false);
+  let [spinner, setSpinner] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -22,6 +25,8 @@ const UpdateJob = () => {
   }, [axios, id.id]);
 
   const handleFormSubmit = async (e) => {
+    setSpinner(true);
+
     e.preventDefault();
 
     const formData = {
@@ -36,6 +41,8 @@ const UpdateJob = () => {
 
     await axios.put(`/categories/${id.id}`, formData).then(() => {
       toast.success("Job updated successfully");
+      navigate("/my-posted-jobs");
+      setSpinner(false);
     });
   };
 
@@ -135,7 +142,15 @@ const UpdateJob = () => {
               />
             </div>
 
-            <button type="submit">Update Job</button>
+            <button type="submit">
+              {spinner ? (
+                <div className="flex justify-center items-center gap-5 ">
+                  <Spinner color="red" /> Updating
+                </div>
+              ) : (
+                "Update Job"
+              )}
+            </button>
           </form>
         </section>
       </div>

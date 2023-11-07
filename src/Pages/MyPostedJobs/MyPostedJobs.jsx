@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import RouteChangeLoader from "../../Utilities/Loader/RouteChangeLoader/RouteChangeLoader";
 import { Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyPostedJobs = () => {
   let axios = useAxios();
@@ -21,6 +22,28 @@ const MyPostedJobs = () => {
       setLoading(false);
     });
   }, [axios, user?.email]);
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure you want to delete this job?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`/categories/${id}`).then(() => {
+          let updatedData = data.filter((item) => item._id !== id);
+          setData(updatedData);
+        });
+        Swal.fire({
+          title: "Job deleted successfully!",
+          icon: "success",
+        });
+      }
+    });
+  };
 
   if (loading) {
     return <RouteChangeLoader />;
@@ -62,7 +85,12 @@ const MyPostedJobs = () => {
                   <Link to={`/update-job/${data._id}`}>
                     <Button className="bg-green-400">Update</Button>
                   </Link>
-                  <Button className="bg-red-400">Delete</Button>
+                  <Button
+                    onClick={() => handleDelete(data._id)}
+                    className="bg-red-400"
+                  >
+                    Delete
+                  </Button>
                 </div>
               </div>
             </div>
