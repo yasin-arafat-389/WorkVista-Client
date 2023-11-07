@@ -18,7 +18,16 @@ const MyBids = () => {
     setLoading(true);
     axios.get(`/myBids?email=${user.email}`).then((res) => {
       setLoading(false);
-      setData(res.data);
+      const sortedData = res.data.sort((a, b) => {
+        const statusOrder = {
+          pending: 1,
+          completed: 2,
+          "in progress": 3,
+          cancelled: 4,
+        };
+        return statusOrder[a.status] - statusOrder[b.status];
+      });
+      setData(sortedData);
     });
   }, [axios, user.email]);
 
