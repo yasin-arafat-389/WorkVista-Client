@@ -1,9 +1,12 @@
-import { Button } from "@material-tailwind/react";
+import { Button, Chip } from "@material-tailwind/react";
 import useAxios from "../../Hooks/useAxios";
 import useAuth from "../../Hooks/useAuth";
 import RouteChangeLoader from "../../Utilities/Loader/RouteChangeLoader/RouteChangeLoader";
 import { useEffect, useState } from "react";
 import NoDataFound from "../../Components/NoDataFound/NoDataFound";
+import { BsHourglassSplit } from "react-icons/bs";
+import { BsCheckCircleFill } from "react-icons/bs";
+import { MdCancel } from "react-icons/md";
 
 const MyBids = () => {
   let axios = useAxios();
@@ -35,16 +38,18 @@ const MyBids = () => {
   return (
     <div className="bg-[#eff6f3]">
       {data.length === 0 ? (
-        <NoDataFound text={"You have no bid requests"} />
+        <NoDataFound text={"You have not made any bids yet"} />
       ) : (
         <section className="container mx-auto p-6 font-mono">
           <div className="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
             <div className="w-full overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+                  <tr className="text-md font-semibold tracking-wide text-left text-white bg-gray-600 capitalize border-b border-gray-600">
                     <th className="px-4 py-3 text-center">Job Title</th>
-                    <th className="px-4 py-3 text-center">Email</th>
+                    <th className="px-4 py-3 text-center">
+                      {`Employer's`} Email
+                    </th>
                     <th className="px-4 py-3 text-center">Status</th>
                     <th className="px-4 py-3 text-center">Deadline</th>
                     <th className="px-4 py-3 text-center">Action</th>
@@ -62,8 +67,9 @@ const MyBids = () => {
                           </div>
                         </td>
                         <td className="px-4 py-3 text-ms font-semibold border text-center">
-                          {item.yourEmail}
+                          {item.buyerEmail}
                         </td>
+
                         <td className="px-4 py-3 text-xs border text-center">
                           <span
                             className={`${
@@ -83,37 +89,51 @@ const MyBids = () => {
                             {item.status}
                           </span>
                         </td>
+
                         <td className="px-4 py-3 text-sm border text-center">
                           {item.deadline}
                         </td>
 
                         <td className="px-4 py-3 text-sm border text-center">
                           <div className="flex gap-5  justify-center">
-                            <Button
-                              className={`${
-                                item.status === "in progress"
-                                  ? "bg-green-400"
-                                  : ""
-                              } ${
-                                item.status === "completed"
-                                  ? "bg-green-400"
-                                  : ""
-                              } `}
-                              disabled={item.status !== "in progress"}
-                              onClick={() => handleComplete(index)}
-                            >
-                              {item.status === "in progress"
-                                ? "Mark as complete"
-                                : ""}
+                            {item.status === "pending" && (
+                              <Chip
+                                className="capitalize bg-gray-500 text-[14px]"
+                                value="Await employer's response"
+                                icon={
+                                  <BsHourglassSplit className="text-[18px]" />
+                                }
+                              />
+                            )}
 
-                              {item.status === "completed" ? "Completed" : ""}
-                              {item.status === "pending"
-                                ? "Wait for owners response"
-                                : ""}
-                              {item.status === "cancelled"
-                                ? "Bid rejected by owner"
-                                : ""}
-                            </Button>
+                            {item.status === "in progress" && (
+                              <Button
+                                className="bg-green-500"
+                                onClick={() => handleComplete(index)}
+                              >
+                                Mark As Complete
+                              </Button>
+                            )}
+
+                            {item.status === "completed" && (
+                              <Chip
+                                className="capitalize bg-green-500 text-[14px]"
+                                value="Job Completed"
+                                icon={
+                                  <BsCheckCircleFill className="text-[18px] text-white" />
+                                }
+                              />
+                            )}
+
+                            {item.status === "cancelled" && (
+                              <Chip
+                                className="capitalize bg-red-500 text-[14px]"
+                                value="Bid rejected by employer"
+                                icon={
+                                  <MdCancel className="text-[18px] text-white" />
+                                }
+                              />
+                            )}
                           </div>
                         </td>
                       </tr>

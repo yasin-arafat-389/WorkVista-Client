@@ -49,12 +49,12 @@ const UpdateJob = () => {
   if (loading) {
     return <RouteChangeLoader />;
   }
-
+  console.log(data);
   return (
     <div className="bg-[#eff6f3] py-10">
       <div className="w-full">
         <section className="bidContainer mx-auto my-10">
-          <header>Add a job</header>
+          <header>Update Job Details</header>
           <form className="bidForm" action="#" onSubmit={handleFormSubmit}>
             {/* Employers email */}
             <div className="input-box">

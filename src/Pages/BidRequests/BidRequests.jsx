@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import RouteChangeLoader from "../../Utilities/Loader/RouteChangeLoader/RouteChangeLoader";
 import useAuth from "../../Hooks/useAuth";
 import NoDataFound from "../../Components/NoDataFound/NoDataFound";
-import { Button } from "@material-tailwind/react";
+import { Button, Chip } from "@material-tailwind/react";
+import ProgressBar from "@ramonak/react-progress-bar";
 
 const BidRequests = () => {
   let axios = useAxios();
@@ -52,9 +53,9 @@ const BidRequests = () => {
             <div className="w-full overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+                  <tr className="text-md font-semibold tracking-wide text-left text-white bg-gray-600 capitalize border-b border-gray-600">
                     <th className="px-4 py-3 text-center">Job Title</th>
-                    <th className="px-4 py-3 text-center">Email</th>
+                    <th className="px-4 py-3 text-center">Bidder Email</th>
                     <th className="px-4 py-3 text-center">Status</th>
                     <th className="px-4 py-3 text-center">Deadline</th>
                     <th className="px-4 py-3 text-center">Price</th>
@@ -101,21 +102,49 @@ const BidRequests = () => {
                           ${item.price}
                         </td>
                         <td className="px-4 py-3 text-sm border text-center">
-                          <div className="flex gap-5">
-                            <Button
-                              className="bg-green-400"
-                              disabled={item.status !== "pending"}
-                              onClick={() => handleAccept(index)}
-                            >
-                              Accept
-                            </Button>
-                            <Button
-                              className="bg-red-400"
-                              disabled={item.status !== "pending"}
-                              onClick={() => handleReject(index)}
-                            >
-                              Reject
-                            </Button>
+                          <div className="flex gap-5 justify-center items-center">
+                            {item.status === "pending" && (
+                              <>
+                                <Button
+                                  className="bg-green-400"
+                                  disabled={item.status !== "pending"}
+                                  onClick={() => handleAccept(index)}
+                                >
+                                  Accept
+                                </Button>
+                                <Button
+                                  className="bg-red-400"
+                                  disabled={item.status !== "pending"}
+                                  onClick={() => handleReject(index)}
+                                >
+                                  Reject
+                                </Button>
+                              </>
+                            )}
+
+                            {item.status === "in progress" && (
+                              <ProgressBar
+                                completed={50}
+                                bgColor="#42ae41"
+                                labelColor="#ffffff"
+                                animateOnRender
+                                className="w-[90%]"
+                              />
+                            )}
+
+                            {item.status === "completed" && (
+                              <Chip
+                                className="capitalize bg-green-500 text-white text-[14px]"
+                                value="Job completed by bidder"
+                              />
+                            )}
+
+                            {item.status === "cancelled" && (
+                              <Chip
+                                className="capitalize bg-red-500 text-white text-[14px]"
+                                value="Bid rejected"
+                              />
+                            )}
                           </div>
                         </td>
                       </tr>
