@@ -75,31 +75,31 @@ const JobDetails = () => {
     postFormData(formDataWithStatus);
   };
 
-  console.log(data?.email, user?.email);
-
   return (
     <div className="bg-[#eff6f3] pb-10">
-      <div className="text-center text-[40px] text-[#fff] py-10 font-semibold bg-[#244034]">
+      <div className="text-center text-[20px] md:text-[40px] lg:text-[40px] text-[#fff] py-10 font-semibold bg-[#244034]">
         {data.job_title}
       </div>
 
-      <div className="w-[40%] mx-auto grid grid-cols-2 gap-5">
+      <div className="w-[80%] md:w-[80%] lg:w-[40%] mx-auto grid grid-cols-2 gap-5">
         {/* Card 1 */}
         <div className="deadline bg-white p-[40px] flex flex-col justify-center items-center gap-4 mt-10 rounded-3xl">
-          <BiTimeFive fontSize={"40px"} />
-          <h1 className="text-[#24403499] text-[16px] font-medium">Deadline</h1>
-          <h1 className="text-[#244034] font-bold text-[20px]">
+          <BiTimeFive className="text-[30px] md:text-[40px] lg:text-[40px]" />
+          <h1 className="text-[#24403499] text-[13px] md:text-[16px] lg:text-[16px] font-medium">
+            Deadline
+          </h1>
+          <h1 className="text-[#244034] font-bold text-[12px] md:text-[20px] lg:text-[20px]">
             {data.deadline}
           </h1>
         </div>
 
         {/* Card 2 */}
         <div className="deadline bg-white p-[40px] flex flex-col justify-center items-center gap-4 mt-10 rounded-3xl">
-          <BiDollar fontSize={"40px"} />
-          <h1 className="text-[#24403499] text-[16px] font-medium">
+          <BiDollar className="text-[30px] md:text-[40px] lg:text-[40px]" />
+          <h1 className="text-[#24403499] text-[13px] md:text-[16px] lg:text-[16px] font-medium">
             Price Range
           </h1>
-          <h1 className="text-[#244034] font-bold text-[20px]">
+          <h1 className="text-[#244034] font-bold text-[12px] md:text-[20px] lg:text-[20px]">
             ${data.price_range_min} - ${data.price_range_max}
           </h1>
         </div>

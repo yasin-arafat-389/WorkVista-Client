@@ -56,15 +56,7 @@ const Login = () => {
 
   return (
     <div>
-      <div
-        className="bg-gray-200"
-        style={{
-          backgroundImage:
-            'url("https://img.freepik.com/free-vector/blue-futuristic-networking-technology_53876-100679.jpg")',
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
-      >
+      <div className="bg-[#0A2540]">
         <div className="py-10">
           <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
             <div className="hidden bg-gray-200 lg:flex lg:w-1/2">

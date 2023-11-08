@@ -42,11 +42,11 @@ export function NavBar() {
   );
 
   return (
-    <nav className="w-full bg-orange-400 px-4 py-2 lg:px-8 lg:py-4 sticky top-0 z-10">
+    <nav className="w-full bg-[#eef1f3] shadow-xl px-4 py-2 lg:px-8 lg:py-4 sticky top-0 z-10">
       <div className="flex items-center justify-between text-blue-gray-900">
         <img
           src="https://i.ibb.co/H75CRnK/workvista-logo-removebg-preview.png"
-          className="w-[15%]"
+          className="w-[40%] md:w-[25%] lg:w-[18%]"
         />
         <div className="hidden lg:block">{navList}</div>
         <div className="hidden md:hidden lg:flex items-center gap-x-1">

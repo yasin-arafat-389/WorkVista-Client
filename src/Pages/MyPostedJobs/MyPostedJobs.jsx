@@ -61,54 +61,60 @@ const MyPostedJobs = () => {
       {data.length === 0 ? (
         <NoDataFound text={"You have not posted any jobs yet"} />
       ) : (
-        <div className="w-[80%] mx-auto grid grid-cols-3 gap-10 py-10">
-          {data.map((data, index) => (
-            <>
-              <div key={index}>
-                <div className="cardCat">
-                  <div className="headerCat">
-                    <span className="titleCat">{data.job_title}</span>
-                  </div>
-                  <ul className="listsCat mt-5 text-[18px]">
-                    <li className="listCat flex items-center gap-3">
-                      <span>
-                        <span className="text-red-400">Deadline:</span>{" "}
-                        {data.deadline}
-                      </span>
-                    </li>
-                    <li className="listCat flex items-center gap-3">
-                      <span>
-                        <span className="text-blue-600">Price Range: </span>$
-                        {data.price_range_min} - ${data.price_range_max}
-                      </span>
-                    </li>
-                    <li className="listCat flex items-center gap-3">
-                      <span>
-                        <span className="text-blue-600">
-                          Short Description:
-                        </span>{" "}
-                        <span className="text-[18px]">
-                          {data.short_description}
+        <>
+          <div className="text-center text-[20px] md:text-[40px] lg:text-[40px] text-[#fff] py-10 font-semibold bg-[#244034]">
+            My Posted Jobs
+          </div>
+
+          <div className="w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 py-10">
+            {data.map((data, index) => (
+              <>
+                <div key={index}>
+                  <div className="cardCat">
+                    <div className="headerCat">
+                      <span className="titleCat">{data.job_title}</span>
+                    </div>
+                    <ul className="listsCat mt-5 text-[18px]">
+                      <li className="listCat flex items-center gap-3">
+                        <span>
+                          <span className="text-red-400">Deadline:</span>{" "}
+                          {data.deadline}
                         </span>
-                      </span>
-                    </li>
-                  </ul>
-                  <div className="flex gap-5 justify-center items-center">
-                    <Link to={`/update-job/${data._id}`}>
-                      <Button className="bg-green-400">Update</Button>
-                    </Link>
-                    <Button
-                      onClick={() => handleDelete(data._id)}
-                      className="bg-red-400"
-                    >
-                      Delete
-                    </Button>
+                      </li>
+                      <li className="listCat flex items-center gap-3">
+                        <span>
+                          <span className="text-blue-600">Price Range: </span>$
+                          {data.price_range_min} - ${data.price_range_max}
+                        </span>
+                      </li>
+                      <li className="listCat flex items-center gap-3">
+                        <span>
+                          <span className="text-blue-600">
+                            Short Description:
+                          </span>{" "}
+                          <span className="text-[18px]">
+                            {data.short_description}
+                          </span>
+                        </span>
+                      </li>
+                    </ul>
+                    <div className="flex gap-5 justify-center items-center">
+                      <Link to={`/update-job/${data._id}`}>
+                        <Button className="bg-green-400">Update</Button>
+                      </Link>
+                      <Button
+                        onClick={() => handleDelete(data._id)}
+                        className="bg-red-400"
+                      >
+                        Delete
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </>
-          ))}
-        </div>
+              </>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

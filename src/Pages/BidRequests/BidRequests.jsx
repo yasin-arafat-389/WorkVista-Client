@@ -39,8 +39,6 @@ const BidRequests = () => {
     axios.put(`/bidRequests/${itemId}`, { status: "cancelled" });
   };
 
-  console.log(data);
-
   if (loading) {
     return <RouteChangeLoader />;
   }

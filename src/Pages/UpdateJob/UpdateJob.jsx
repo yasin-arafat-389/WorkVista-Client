@@ -20,7 +20,7 @@ const UpdateJob = () => {
     setLoading(true);
     axios.get(`/categories/${id.id}`).then((res) => {
       setLoading(false);
-      setData(res.data);
+      setData(res?.data);
     });
   }, [axios, id.id]);
 
@@ -49,7 +49,7 @@ const UpdateJob = () => {
   if (loading) {
     return <RouteChangeLoader />;
   }
-  console.log(data);
+
   return (
     <div className="bg-[#eff6f3] py-10">
       <div className="w-full">

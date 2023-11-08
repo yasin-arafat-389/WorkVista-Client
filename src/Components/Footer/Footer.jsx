@@ -12,7 +12,7 @@ const Footer = () => {
               <div className="px-6">
                 <a href="#">
                   <img
-                    className="w-[50%]"
+                    className="w-[60%] md:w-[40%] lg:w-[50%]"
                     src="https://i.ibb.co/H75CRnK/workvista-logo-removebg-preview.png"
                     alt=""
                   />

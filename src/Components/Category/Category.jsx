@@ -58,7 +58,7 @@ const Category = () => {
 
   return (
     <div className="pb-10 bg-[#f9f9f9]">
-      <h2 className="text-center text-[30px] md:text-[40px] lg:text-[40px] font-bold leading-tight text-gray-800 py-0 pb-7 md:py-3 md:pb-7 lg:py-10">
+      <h2 className="text-center text-[30px] md:text-[40px] lg:text-[40px] font-bold leading-tight text-gray-800 py-10">
         Browse by <span className="text-blue-600">Category</span>
       </h2>
 
