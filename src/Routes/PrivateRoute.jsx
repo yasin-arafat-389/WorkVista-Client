@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import useAuth from "../Hooks/useAuth";
 import RouteChangeLoader from "../Utilities/Loader/RouteChangeLoader/RouteChangeLoader";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
-  let location = useLocation();
 
   if (loading) {
     return <RouteChangeLoader />;
@@ -14,7 +13,7 @@ const PrivateRoute = ({ children }) => {
 
   if (!user) {
     toast.error("You must login first");
-    return <Navigate state={location.pathname} to="/login" />;
+    return <Navigate to="/login" />;
   }
 
   return <div>{children}</div>;

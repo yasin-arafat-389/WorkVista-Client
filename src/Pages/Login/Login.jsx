@@ -66,8 +66,8 @@ const Login = () => {
             <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
               <div className="flex justify-center mx-auto">
                 <img
-                  className="w-[30%]"
-                  src="https://i.ibb.co/N6ZMf1t/Tech-Tron-removebg-preview.png"
+                  className="w-[50%]"
+                  src="https://i.ibb.co/H75CRnK/workvista-logo-removebg-preview.png"
                   alt=""
                 />
               </div>
