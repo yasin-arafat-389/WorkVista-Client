@@ -18,7 +18,6 @@ const AuthContext = ({ children }) => {
   const provider = new GoogleAuthProvider();
 
   // Hooks
-  // let axios = useAxios();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -53,14 +52,18 @@ const AuthContext = ({ children }) => {
       if (user) {
         const userEmail = { email: user.email };
         axios
-          .post("http://localhost:5000/access-token", userEmail, {
-            withCredentials: true,
-          })
+          .post(
+            "https://work-vista-server.vercel.app/access-token",
+            userEmail,
+            {
+              withCredentials: true,
+            }
+          )
           .then();
       } else {
         const userEmail = { email: user?.email };
         axios
-          .post("http://localhost:5000/clearCookie", userEmail, {
+          .post("https://work-vista-server.vercel.app/clearCookie", userEmail, {
             withCredentials: true,
           })
           .then();

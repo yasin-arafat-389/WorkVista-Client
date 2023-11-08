@@ -29,9 +29,15 @@ const BrandsMarquee = () => {
             className="mx-[20px] w-[250px]"
             src="https://i.ibb.co/8sdYJt1/tiger-it-removebg-preview.png"
           />
+
           <img
             className="mx-[20px] w-[250px]"
             src="https://i.ibb.co/1fYVZT3/Apploye-logo-removebg-preview.png"
+          />
+
+          <img
+            className="mx-[20px] w-[250px]"
+            src="https://i.ibb.co/jf4Fhps/download-removebg-preview.png"
           />
         </Marquee>
       </div>

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://work-vista-server.vercel.app",
   withCredentials: true,
 });
 
@@ -29,7 +29,7 @@ const useAxios = () => {
               console.log(error);
             });
           const userEmail = { email: user?.email };
-          fetch("http://localhost:5000/clearCookie", {
+          fetch("https://work-vista-server.vercel.app/clearCookie", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
