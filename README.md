@@ -1,8 +1,12 @@
-# React + Vite
+## About Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Project name:- WorkVista
+- [Project live URL](https://workvista-167d6.web.app/)
 
-Currently, two official plugins are available:
+# Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- User can browse jobs by category.
+- User can post a job.
+- User can see their posted jobs separately at my posted jobs menu.
+- User can see the status of the jobs they made a bid to.
+- User can see the bid requests made to their job post and accept or reject them.
