@@ -111,10 +111,6 @@ const JobDetails = () => {
         </h1>
       </div>
 
-      {/* Place your bid form */}
-
-      {}
-
       {data?.email === user?.email ? (
         <div className="flex justify-center items-center mt-10">
           <Link to="/bid-requests">

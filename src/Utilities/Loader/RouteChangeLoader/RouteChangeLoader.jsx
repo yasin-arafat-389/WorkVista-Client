@@ -5,7 +5,7 @@ const RouteChangeLoader = () => {
   return (
     <div>
       <div className="flex h-screen justify-center items-center">
-        <Lottie animationData={loader} loop={true} className="w-[30%]" />
+        <Lottie animationData={loader} loop={true} className="w-[25%]" />
       </div>
     </div>
   );
