@@ -20,6 +20,7 @@ const AuthContext = ({ children }) => {
   // Hooks
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [awaitUser, setAwaitUser] = useState();
 
   let createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -59,7 +60,7 @@ const AuthContext = ({ children }) => {
               withCredentials: true,
             }
           )
-          .then();
+          .then((res) => setAwaitUser(res.data));
       } else {
         const userEmail = { email: user?.email };
         axios
@@ -82,6 +83,7 @@ const AuthContext = ({ children }) => {
     googleLogin,
     loading,
     user,
+    awaitUser,
   };
 
   return (
