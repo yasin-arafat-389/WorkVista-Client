@@ -60,6 +60,8 @@ const Registration = () => {
       })
       .catch((error) => {
         console.log(error);
+        toast.error("Email already in use. Try another one");
+        setLoading(false);
       });
   };
 
