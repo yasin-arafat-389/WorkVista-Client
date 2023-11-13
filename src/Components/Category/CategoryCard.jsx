@@ -41,7 +41,9 @@ const CategoryCard = ({ data }) => {
           <li className="listCat flex items-center gap-3">
             <span>
               <span className="text-blue-600">Short Description:</span>{" "}
-              <span className="text-[18px]">{data.short_description}</span>
+              <span className="text-[18px] elipseDesc">
+                {data.short_description}
+              </span>
             </span>
           </li>
         </ul>
