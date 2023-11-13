@@ -79,8 +79,8 @@ const Registration = () => {
           <div className="px-6 py-4">
             <div className="flex justify-center mx-auto">
               <img
-                className="w-[35%]"
-                src="https://i.ibb.co/N6ZMf1t/Tech-Tron-removebg-preview.png"
+                className="w-[60%]"
+                src="https://i.ibb.co/H75CRnK/workvista-logo-removebg-preview.png"
                 alt=""
               />
             </div>

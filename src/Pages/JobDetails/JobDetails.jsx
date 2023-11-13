@@ -73,6 +73,11 @@ const JobDetails = () => {
       jobTitle: data.job_title,
     };
     postFormData(formDataWithStatus);
+
+    // Set email and id to local storage
+    const existingData = JSON.parse(localStorage.getItem("myBids")) || [];
+    const updatedData = [...existingData, { email: user?.email, id: jobId }];
+    localStorage.setItem("myBids", JSON.stringify(updatedData));
   };
 
   return (

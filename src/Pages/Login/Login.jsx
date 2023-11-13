@@ -5,11 +5,11 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  let { login, googleLogin } = useAuth();
+  let { login, googleLogin, awaitUser, setAwaitUser } = useAuth();
 
   let navigate = useNavigate();
   let location = useLocation();
@@ -32,7 +32,6 @@ const Login = () => {
 
     login(formData.email, formData.password)
       .then(() => {
-        navigate(location?.state ? location.state : "/");
         toast.success("Successfully Logged In!");
       })
       .catch((error) => {
@@ -46,12 +45,19 @@ const Login = () => {
   let handleGoogleLogin = () => {
     googleLogin()
       .then(() => {
-        navigate(location?.state ? location.state : "/");
+        toast.success("Successfully Logged In!");
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    if (awaitUser) {
+      navigate(location?.state ? location.state : "/");
+      setAwaitUser(false);
+    }
+  }, [setAwaitUser, awaitUser, location, navigate]);
 
   return (
     <div>

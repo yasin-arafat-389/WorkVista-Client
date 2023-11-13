@@ -1,4 +1,3 @@
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import useAxios from "../../Hooks/useAxios";
 import CategoryCard from "./CategoryCard";
 import ContentLoader from "../../Utilities/Loader/ContentLoader/ContentLoader";
@@ -13,6 +12,11 @@ const Category = () => {
   let [digital, setDigital] = useState([]);
   let [graphics, setGraphics] = useState([]);
   let [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState("tab1");
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -63,49 +67,76 @@ const Category = () => {
       </h2>
 
       <div className="w-[80%] mx-auto">
-        <Tabs>
-          <TabList>
-            <Tab>Web Development</Tab>
-            <Tab>Digital Marketting</Tab>
-            <Tab>Graphics Design</Tab>
-          </TabList>
+        <>
+          {/* tabs */}
+          <div>
+            <div className="grid grid-cols-3 gap-5">
+              <button
+                className={`p-4 rounded ${
+                  activeTab === "tab1"
+                    ? "bg-indigo-500 text-white font-bold shadow-md"
+                    : "bg-gray-400 text-[#000] font-bold"
+                } flex items-center justify-center`}
+                onClick={() => handleTabClick("tab1")}
+              >
+                Web Development
+              </button>
+              <button
+                className={`p-4 rounded ${
+                  activeTab === "tab2"
+                    ? "bg-indigo-500 text-white font-bold shadow-md"
+                    : "bg-gray-400 text-[#000] font-bold"
+                } flex items-center justify-center`}
+                onClick={() => handleTabClick("tab2")}
+              >
+                Digital Marketing
+              </button>
+              <button
+                className={`p-4 rounded ${
+                  activeTab === "tab3"
+                    ? "bg-indigo-500 text-white font-bold shadow-md"
+                    : "bg-gray-400 text-[#000] font-bold"
+                } flex items-center justify-center`}
+                onClick={() => handleTabClick("tab3")}
+              >
+                Graphics Design
+              </button>
+            </div>
 
-          <TabPanel>
-            {loading ? (
-              <ContentLoader />
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-10 w-[90%] mx-auto">
-                {web.map((item, index) => (
-                  <CategoryCard key={index} data={item} />
-                ))}
-              </div>
-            )}
-          </TabPanel>
+            {activeTab === "tab1" &&
+              (loading ? (
+                <ContentLoader />
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-10 mt-5">
+                  {web.map((item, index) => (
+                    <CategoryCard key={index} data={item} />
+                  ))}
+                </div>
+              ))}
 
-          <TabPanel>
-            {loading ? (
-              <ContentLoader />
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-10 w-[90%] mx-auto">
-                {digital.map((item, index) => (
-                  <CategoryCard key={index} data={item} />
-                ))}
-              </div>
-            )}
-          </TabPanel>
+            {activeTab === "tab2" &&
+              (loading ? (
+                <ContentLoader />
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-10 mt-5">
+                  {digital.map((item, index) => (
+                    <CategoryCard key={index} data={item} />
+                  ))}
+                </div>
+              ))}
 
-          <TabPanel>
-            {loading ? (
-              <ContentLoader />
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-10 w-[90%] mx-auto">
-                {graphics.map((item, index) => (
-                  <CategoryCard key={index} data={item} />
-                ))}
-              </div>
-            )}
-          </TabPanel>
-        </Tabs>
+            {activeTab === "tab3" &&
+              (loading ? (
+                <ContentLoader />
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-10 mt-5">
+                  {graphics.map((item, index) => (
+                    <CategoryCard key={index} data={item} />
+                  ))}
+                </div>
+              ))}
+          </div>
+        </>
       </div>
     </div>
   );

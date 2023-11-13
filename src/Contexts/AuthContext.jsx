@@ -84,6 +84,7 @@ const AuthContext = ({ children }) => {
     loading,
     user,
     awaitUser,
+    setAwaitUser,
   };
 
   return (

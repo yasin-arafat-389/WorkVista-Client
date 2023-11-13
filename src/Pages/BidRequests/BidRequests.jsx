@@ -17,11 +17,11 @@ const BidRequests = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`/bidRequests?email=${user.email}`).then((res) => {
+    axios.get(`/bidRequests?email=${user?.email}`).then((res) => {
       setLoading(false);
       setData(res.data);
     });
-  }, [axios, user.email]);
+  }, [axios, user?.email]);
 
   const handleAccept = (index) => {
     const updatedData = [...data];
