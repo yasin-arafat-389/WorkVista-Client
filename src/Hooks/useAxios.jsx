@@ -1,7 +1,6 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
@@ -10,42 +9,34 @@ const axiosSecure = axios.create({
 });
 
 const useAxios = () => {
-  let { logOut, user } = useAuth();
+  let { logOut } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axiosSecure.interceptors.response.use(
-      (res) => {
-        return res;
-      },
-      (error) => {
-        if (error.response.status === 401 || error.response.status === 403) {
-          logOut()
-            .then(() => {
-              navigate("/login");
-              toast.error("Something went wrong. Please login again");
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-          const userEmail = { email: user?.email };
-          fetch("https://work-vista-server.vercel.app/clearCookie", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify(userEmail),
-          })
-            .then((response) => response.json())
-            .then()
-            .catch((error) => {
-              console.error("Error:", error);
-            });
-        }
+  axiosSecure.interceptors.request.use(
+    function (config) {
+      const token = localStorage.getItem("access-token-from-workvista");
+      config.headers.authorization = `Bearer ${token}`;
+      return config;
+    },
+    function (error) {
+      return Promise.reject(error);
+    }
+  );
+
+  axiosSecure.interceptors.response.use(
+    function (response) {
+      return response;
+    },
+    async (error) => {
+      const status = error.response.status;
+      if (status === 401 || status === 403) {
+        await logOut();
+        toast.error("Something went wrong. Please Login Again");
+        navigate("/login");
       }
-    );
-  }, [logOut, navigate, user?.email]);
+      return Promise.reject(error);
+    }
+  );
 
   return axiosSecure;
 };

@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  let { login, googleLogin, awaitUser, setAwaitUser } = useAuth();
+  let { login, googleLogin, awaitForToken, setAwaitForToken } = useAuth();
 
   let navigate = useNavigate();
   let location = useLocation();
@@ -53,11 +53,11 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (awaitUser) {
-      navigate(location?.state ? location.state : "/");
-      setAwaitUser(false);
+    if (awaitForToken) {
+      navigate(location?.state ? location.state : "/", { replace: true });
+      setAwaitForToken(false);
     }
-  }, [setAwaitUser, awaitUser, location, navigate]);
+  }, [location, navigate, awaitForToken, setAwaitForToken]);
 
   return (
     <div>

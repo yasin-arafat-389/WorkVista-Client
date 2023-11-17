@@ -20,7 +20,7 @@ const AuthContext = ({ children }) => {
   // Hooks
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [awaitUser, setAwaitUser] = useState();
+  const [awaitForToken, setAwaitForToken] = useState(false);
 
   let createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -53,21 +53,18 @@ const AuthContext = ({ children }) => {
       if (user) {
         const userEmail = { email: user.email };
         axios
-          .post(
-            "https://work-vista-server.vercel.app/access-token",
-            userEmail,
-            {
-              withCredentials: true,
+          .post("https://work-vista-server.vercel.app/access-token", userEmail)
+          .then((res) => {
+            if (res.data.token) {
+              localStorage.setItem(
+                "access-token-from-workvista",
+                res.data.token
+              );
             }
-          )
-          .then((res) => setAwaitUser(res.data));
+            setAwaitForToken(res.data.token);
+          });
       } else {
-        const userEmail = { email: user?.email };
-        axios
-          .post("https://work-vista-server.vercel.app/clearCookie", userEmail, {
-            withCredentials: true,
-          })
-          .then();
+        localStorage.removeItem("access-token-from-workvista");
       }
     });
     return () => {
@@ -83,8 +80,8 @@ const AuthContext = ({ children }) => {
     googleLogin,
     loading,
     user,
-    awaitUser,
-    setAwaitUser,
+    awaitForToken,
+    setAwaitForToken,
   };
 
   return (
