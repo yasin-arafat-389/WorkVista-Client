@@ -13,7 +13,7 @@ const PrivateRoute = ({ children }) => {
 
   if (!user) {
     toast.error("You must login first");
-    return <Navigate state={location.pathname} replace={true} to="/login" />;
+    return <Navigate state={location.pathname} to="/login" />;
   }
 
   return <div>{children}</div>;

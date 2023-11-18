@@ -20,7 +20,6 @@ const AuthContext = ({ children }) => {
   // Hooks
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [awaitForToken, setAwaitForToken] = useState(false);
 
   let createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -61,7 +60,6 @@ const AuthContext = ({ children }) => {
                 res.data.token
               );
             }
-            setAwaitForToken(res.data.token);
           });
       } else {
         localStorage.removeItem("access-token-from-workvista");
@@ -80,8 +78,6 @@ const AuthContext = ({ children }) => {
     googleLogin,
     loading,
     user,
-    awaitForToken,
-    setAwaitForToken,
   };
 
   return (

@@ -5,11 +5,12 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  let { login, googleLogin, awaitForToken, setAwaitForToken } = useAuth();
+  let { login, googleLogin } = useAuth();
 
   let navigate = useNavigate();
   let location = useLocation();
@@ -32,7 +33,19 @@ const Login = () => {
 
     login(formData.email, formData.password)
       .then(() => {
-        toast.success("Successfully Logged In!");
+        const userEmail = { email: formData.email };
+        axios
+          .post("https://work-vista-server.vercel.app/access-token", userEmail)
+          .then((res) => {
+            if (res.data.token) {
+              localStorage.setItem(
+                "access-token-from-workvista",
+                res.data.token
+              );
+              navigate(location?.state ? location?.state : "/");
+              toast.success("Successfully Logged In!");
+            }
+          });
       })
       .catch((error) => {
         setLoading(false);
@@ -44,20 +57,25 @@ const Login = () => {
 
   let handleGoogleLogin = () => {
     googleLogin()
-      .then(() => {
-        toast.success("Successfully Logged In!");
+      .then((res) => {
+        const userEmail = { email: res.user?.email };
+        axios
+          .post("https://work-vista-server.vercel.app/access-token", userEmail)
+          .then((res) => {
+            if (res.data.token) {
+              localStorage.setItem(
+                "access-token-from-workvista",
+                res.data.token
+              );
+              navigate(location?.state ? location?.state : "/");
+              toast.success("Successfully Logged In!");
+            }
+          });
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
-  useEffect(() => {
-    if (awaitForToken) {
-      navigate(location?.state ? location.state : "/", { replace: true });
-      setAwaitForToken(false);
-    }
-  }, [location, navigate, awaitForToken, setAwaitForToken]);
 
   return (
     <div>
