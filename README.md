@@ -1,6 +1,7 @@
 # About Project
 
 - Project name:- WorkVista
+- Type:- Online job marketplace
 - [Project live URL](https://workvista-167d6.web.app/)
 
 # Features
